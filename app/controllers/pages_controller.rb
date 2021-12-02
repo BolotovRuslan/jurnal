@@ -14,6 +14,7 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
+    @page.parent_id = params[:parent_id]
 
     if @page.save
       redirect_to @page, notice: 'Successfully created'
