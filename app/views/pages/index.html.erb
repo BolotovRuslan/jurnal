@@ -14,10 +14,11 @@
   </ul>
 <% end %>
 </div>
+
 <div class="col-md-5">
   <div class="well">
     <h3>Дерево страниц сайта:</h3>
-      <%= nested_pages @pages.arrange(order: :created_at) %>
+      <%= nested_pages @pages.arrange(:order => :created_at) %>
   </div>
   <%= link_to "Add root page", new_page_path, class: 'btn btn-primary' %>
 </div>

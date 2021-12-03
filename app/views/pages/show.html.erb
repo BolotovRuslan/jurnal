@@ -1,14 +1,22 @@
-<h3><%= @page.header %></h3>
-<p><%=  @page.body %></p>
+<div class="col-md-7">
+  <h3><%= @page.header %></h3>
+  <p><%= raw @page.body %></p>
 
-<ul>
-  <li>
-  	<%= link_to 'edit page', edit_page_path(@page), class: 'btn btn-primary' %>
-  </li>
-  <li>
-    <%= link_to 'delete page', page_path(@page), class: 'btn btn-primary', method: :delete, data: {confirm: 'Are you shure?'} %>
-  </li>
-  <li>
-    <%= link_to "Add new subpage", new_page_path(parent_id: @page[:id]), class: 'btn btn-primary' %>
-  </li>
-</ul>
+  <ul>
+    <li>
+      <%= link_to 'edit page', edit_page_path(@page), class: 'btn btn-primary' %>
+    </li>
+    <li>
+      <%= link_to 'delete page', page_path(@page), class: 'btn btn-primary', method: :delete, data: {confirm: 'Are you shure?'} %>
+    </li>
+    <li>
+      <%= link_to "Add new subpage", new_page_path(parent_id: @page[:id]), class: 'btn btn-primary' %>
+    </li>
+  </ul>
+</div>
+<div class="col-md-5">
+  <div class="well">
+    <h3>Дерево под страниц</h3>
+      <%= nested_pages @page.subtree.arrange(:order => :created_at) %>
+  </div>
+</div>
