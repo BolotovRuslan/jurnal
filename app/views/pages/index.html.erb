@@ -1,9 +1,23 @@
-<ul>
+<div class="col-md-7">
   <% @pages.each do |page| %>
+  <ul>
+    <li><%= link_to page.id, page_path(page) %></li>
+    <li><%= page.parent_id %></li>
+    <li><%= page.title %></li>
     <li>
-      <%= link_to page.title, page %>
+      <%= link_to 'show', page_path(page), class: 'btn btn-default btn-xs' %>
+      <%= link_to 'edit', edit_page_path(page), class: 'btn btn-default btn-xs' %>
+      <%= link_to 'destroy', page_path(page), method: :delete,
+                  :data => {confirm: 'Are you sure?'},
+                  :class => 'btn btn-xs btn-danger' %>
     </li>
-  <% end %>
-</ul>
-
-<%= link_to 'New Page', new_page_path %>
+  </ul>
+<% end %>
+</div>
+<div class="col-md-5">
+  <div class="well">
+    <h3>Дерево страниц сайта:</h3>
+      <%= nested_pages @pages.arrange(order: :created_at) %>
+  </div>
+  <%= link_to "Add root page", new_page_path, class: 'btn btn-primary' %>
+</div>

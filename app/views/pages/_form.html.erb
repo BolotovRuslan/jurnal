@@ -1,4 +1,7 @@
 <%= form_with model: page do |form| %>
+
+  <%= form.hidden_field :parent_id %>
+  
   <div>
     <%= form.label :title %><br>
     <%= form.text_field :title %>

@@ -1,10 +1,7 @@
 class PagesController < ApplicationController
+  before_action :set_page, only: %i[show edit update destroy]
   def index
     @pages = Page.all
-  end
-
-  def show
-    @page = Page.find(params[:id])
   end
 
   def new
@@ -14,7 +11,6 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    @page.parent_id = params[:parent_id]
 
     if @page.save
       redirect_to @page, notice: 'Successfully created'
@@ -23,9 +19,26 @@ class PagesController < ApplicationController
     end
   end
 
+  def update
+    if @page.update(page_params)
+      redirect_to @page, notice: 'Page was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @page.destroy
+    redirect_to root_path, notice: 'Successfully destroyed'
+  end
+
   private
 
+  def set_page
+    @page = Page.find(params[:id])
+  end
+
   def page_params
-    params.require(:page).permit(:title, :header, :body, :ancestry)
+    params.require(:page).permit(:title, :header, :body, :parent_id)
   end
 end
